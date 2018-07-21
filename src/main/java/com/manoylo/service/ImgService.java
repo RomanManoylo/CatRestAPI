@@ -1,12 +1,15 @@
 package com.manoylo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +33,6 @@ public class ImgService {
         try {
             Files.createDirectory(rootLocation);
         } catch (IOException e) {
-            //logger.error("Could not initialize base path", e);
         }
     }
 
@@ -70,6 +72,24 @@ public class ImgService {
         else return "";
     }
 
-    
+
+    public Resource loadResource(String filename) {
+        try {
+            Path file =  loadPath(filename);
+            Resource resource = new UrlResource(file.toUri());
+            if(resource.exists() || resource.isReadable()) {
+                return resource;
+            }
+
+        } catch (MalformedURLException e) {
+           return null;
+        }
+        return null;
+    }
+
+    public Path loadPath(String filename) {
+        return rootLocation.resolve(filename);
+    }
+
 
 }

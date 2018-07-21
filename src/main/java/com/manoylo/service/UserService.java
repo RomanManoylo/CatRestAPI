@@ -68,7 +68,8 @@ public class UserService {
         User user = userRepository.findByLogin(name);
         Optional<Cat> cat = catRepository.findById(id);
         if (cat.isPresent()) {
-            user.getCatList().remove(cat);
+            user.getCatList().remove(cat.get());
+            userRepository.save(user);
             return true;
         }
         return false;

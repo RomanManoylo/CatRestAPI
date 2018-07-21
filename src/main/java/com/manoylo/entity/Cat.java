@@ -18,6 +18,9 @@ public class Cat {
 
     private String info;
 
+    public Cat() {
+    }
+
     public Cat(Cat cat, String imgName) {
         this.id = cat.getId();
         this.name = cat.getName();
@@ -39,7 +42,7 @@ public class Cat {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -61,5 +64,23 @@ public class Cat {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cat cat = (Cat) o;
+
+        if (id != null ? !id.equals(cat.id) : cat.id != null) return false;
+        return name != null ? name.equals(cat.name) : cat.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

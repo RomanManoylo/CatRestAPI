@@ -32,4 +32,6 @@ dependencies {
     compile 'javax.xml.bind:jaxb-api:2.3.0'
     compile("org.springframework.boot:spring-boot-starter-web")
     compile 'org.springframework.boot:spring-boot-starter-security'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
+    
 }
